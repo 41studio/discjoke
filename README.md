@@ -4,9 +4,9 @@ This repo is starter for Ruby on Rails.
 
 Things you may want to cover:
 
-* Ruby version 2.2.2
+* Ruby version **2.2.2**
 
-* Rails version 4.2.4
+* Rails version **4.2.4**
 
 * Gems
   ```ruby
@@ -24,6 +24,10 @@ Things you may want to cover:
   gem 'mini_magick'
   gem 'friendly_id', '~> 5.1.0'
   gem 'kaminari'
+  gem 'turbolinks'
+  gem 'jquery-turbolinks'
+  gem 'nprogress-rails'
+  gem 'bootstrap-sass', '~> 3.3.5'
 
   # gem 'therubyracer', platforms: :ruby
 
