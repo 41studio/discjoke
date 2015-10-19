@@ -49,13 +49,50 @@ Things you may want to cover:
   end
 
   ```
+* Initialize starter
+  ```
+    git clone git@github.com:dimasjt/starter.git YourAppName
+    cd YourAppName
+    bundle install
+  ```
 
 * Database using **postgresql**
 
 * Database initialization
+  Create database.yml in config/database.yml
+  
+  ```yaml
+    default: &default
+      adapter: postgresql
+      encoding: unicode
+      username: postgres
+      password: postgres
+      host: localhost
+      pool: 5
+    
+    development:
+      <<: *default
+      database: name_db_development 
+    
+    test:
+      <<: *default
+      database: name_db_test
+    
+    production:
+      adapter: postgresql
+      encoding: unicode
+      database: name_db_production
+      username: postgres
+      password: <%= ENV['BOTTLE_DATABASE_PASSWORD'] %>
+
+  ```
+
+  ```
+    rake db:create
+    rake db:create RAILS_ENV=test
+  ```
 
 * How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
+  ```
+    rspec
+  ```
