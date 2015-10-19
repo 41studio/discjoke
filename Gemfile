@@ -16,6 +16,8 @@ gem 'devise'
 gem 'mini_magick'
 gem 'friendly_id', '~> 5.1.0'
 gem 'kaminari'
+gem 'turbolinks'
+gem 'jquery-turbolinks'
 
 # gem 'therubyracer', platforms: :ruby
 
