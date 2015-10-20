@@ -19,4 +19,4 @@ production:
   encoding: unicode
   database: starter_production
   username: postgres
-  password: <%= ENV['BOTTLE_DATABASE_PASSWORD'] %>
+  password: postgres
