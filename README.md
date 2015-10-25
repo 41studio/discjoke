@@ -11,11 +11,12 @@
 ## Initialize Starter Kit
 
 * Clone repository
-  ```
-    git clone git@github.com:dimasjt/starter.git YourAppName
-    cd YourAppName
-    bundle install
-  ```
+ ```
+  git clone git@github.com:dimasjt/starter.git YourAppName
+  cd YourAppName
+  bundle install
+```
+
 * Rename **Starter** to **YourAppName**
   application.rb
   ```ruby
