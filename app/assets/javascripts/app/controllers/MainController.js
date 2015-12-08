@@ -7,26 +7,43 @@ app.controller('MainController', ['$scope', '$rootScope', 'Restangular', 'PubNub
     });
 
     $rootScope.allVideos = Restangular.all('videos').getList().$object;
-    $rootScope.playVideo = Restangular.one('videos').one('play').get().$object;
-    $rootScope.newVideo = { url: '' };
 
+    if (window.location.hostname == 'localhost') {
+      $rootScope.playVideo = Restangular.one('videos').one('play').get().$object;
+
+      $rootScope.$on('youtube.player.ended', function(event, player){
+        var updateVideo = $rootScope.playVideo.put()
+
+        $rootScope.playVideo = updateVideo.$object;
+
+        PubNub.ngPublish({
+          channel: 'nowplaying',
+          message: true
+        })
+
+        player.playVideo();
+      })
+    }
+    
     PubNub.ngSubscribe({
-      channel: 'playlist',
-      callback: function(video_id, payload){
-        Restangular.one('videos', video_id).get().then(function(video){
-          $rootScope.allVideos.push(video)
+      channel: 'nowplaying',
+      callback: function(msg, payload){
+        Restangular.all('videos').getList().then(function(videos){
+          $rootScope.allVideos = videos;
         }, function(err){
           console.log('not found')
         })
       }
     })
 
-    $rootScope.$on('youtube.player.ended', function(event, player){
-      var updateVideo = $rootScope.playVideo.put()
+    $rootScope.newVideo = { url: '' };
 
-      $rootScope.playVideo = updateVideo.$object;
-
-      player.playVideo();
+    PubNub.ngSubscribe({
+      channel: 'playlist',
+      callback: function(video_id, payload){
+        $rootScope.allVideos = Restangular.all('videos').getList().$object;
+      }
     })
+
   }
 ])
