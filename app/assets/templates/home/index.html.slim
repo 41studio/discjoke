@@ -1,0 +1,20 @@
+.row
+  div ng-include="'videos/new.html'"
+    
+  br
+  br
+  .clearfix
+.row
+  .col-md-8.col-md-offset-2 ng-include="'videos/play.html'" ng-if="isDj()"
+  .clearfix
+.row
+  .col-md-8.col-md-offset-2
+    .list-group
+      a.list-group-item ng-repeat="video in allVideos | orderBy:['-playing','-created_at']" ng-class="{active: video.playing}" ng-href="{{video.url}}" target="_blank"
+        .col-md-4
+          img.img-rounded.img-responsive ng-src="{{video.thumbnail}}"
+        .col-md-8
+          h4.list-group-item-heading
+            | {{video.title}} 
+            span.label.label-info ng-show="video.playing" #NP
+        .clearfix

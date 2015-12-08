@@ -1,11 +1,13 @@
 doctype html
-html
+html ng-app="BisPakApp"
   head
     title Starter
     = stylesheet_link_tag 'application', media: 'all'
+    = javascript_include_tag 'http://cdn.pubnub.com/pubnub.min.js', 'https://www.youtube.com/iframe_api'
     = javascript_include_tag 'application'
     = csrf_meta_tags
-  body
+  body ng-controller="MainController"
+    toast
     = render "layouts/menu"
     .container
       = yield

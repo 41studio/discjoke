@@ -1,0 +1,6 @@
+.col-md-8.col-md-offset-2 ng-controller="VideosController"
+  form ng-submit="videos.add(newVideo)"
+    .input-group
+      input.form-control type="text" placeholder="https://www.youtube.com/watch?v=anMYu17aZT4" ng-model="newVideo.url" autofocus=""
+      span.input-group-btn
+        input.btn.btn-success type="submit" value="Add"
