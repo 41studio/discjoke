@@ -12,7 +12,7 @@ class Api::VideosController < BaseApiController
   end
 
   def index
-    videos = Video.order(created_at: :asc)
+    videos = Video.not_played
     render json: videos, status: :ok
   end
 
