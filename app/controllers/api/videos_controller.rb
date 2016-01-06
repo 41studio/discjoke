@@ -35,9 +35,10 @@ class Api::VideosController < BaseApiController
 
   def play
     video = Video.play_now
-    video.playing = true
-    video.save
-
+    if video.present?
+      video.playing = true
+      video.save
+    end
     render json: video, status: :ok
   end
 

@@ -1,6 +1,6 @@
 .row
   div ng-include="'videos/new.html'"
-    
+
   br
   br
   .clearfix
@@ -15,7 +15,7 @@
           img.img-rounded.img-responsive ng-src="{{video.thumbnail}}"
         .col-md-8
           h4.list-group-item-heading
-            | {{video.title}} 
+            | {{video.title}}
             span.label.label-info ng-show="video.playing" #NP
             span.label.label-warning ng-show="video.status" #PLAYED
         .clearfix
