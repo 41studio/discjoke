@@ -12,27 +12,22 @@ app.controller('HomeController', ['$scope', '$rootScope', 'Restangular', 'PubNub
 
     }
 
-    $scope.allVideos = Restangular.all('videos').getList().$object;
-    window.a = $scope.allVideos
-    PubNub.ngSubscribe({
-      channel: 'nowplaying',
-      callback: function(msg, payload){
-        Restangular.all('videos').getList().then(function(videos){
-          $scope.allVideos = videos;
-        }, function(err){
-          console.log('not found')
+    if ($scope.isDj) {
+      $scope.playVideo = Restangular.one('videos').one('play').get().$object;
+
+      $scope.$on('youtube.player.ended', function(event, player){
+        var updateVideo = $scope.playVideo.put()
+
+        $scope.playVideo = updateVideo.$object;
+
+        PubNub.ngPublish({
+          channel: 'nowplaying',
+          message: true
         })
-      }
-    })
 
-    $rootScope.newVideo = { url: '' };
-
-    PubNub.ngSubscribe({
-      channel: 'playlist',
-      callback: function(video_id, payload){
-        $scope.allVideos = Restangular.all('videos').getList().$object;
-      }
-    })
+        player.playVideo();
+      })
+    }
 
   }
 ])
