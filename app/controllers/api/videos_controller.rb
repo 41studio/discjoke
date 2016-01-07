@@ -12,7 +12,7 @@ class Api::VideosController < BaseApiController
   end
 
   def index
-    videos = Video.not_played
+    videos = Video.all
     render json: videos, status: :ok
   end
 
@@ -21,14 +21,11 @@ class Api::VideosController < BaseApiController
   end
 
   def played
-    video = Video.find(params[:id])
-    video.status = true
-    video.playing = false
-    video.save
+    played_video = Video.find(params[:id])
+    played_video.mark_as(:played)
 
-    video = Video.play_now
-    video.playing = true
-    video.save
+    next_video = Video.play_now
+    next_video.mark_as(:playing)
 
     render json: video, status: :ok
   end

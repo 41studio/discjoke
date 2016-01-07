@@ -10,7 +10,21 @@ class Video < ActiveRecord::Base
   validate :check_limit
 
   scope :not_played, -> { order(created_at: :asc).where(status: false) }
-  scope :play_now, -> { not_played.first }
+
+  def self.play_now; not_played.first end
+
+  def mark_as(status)
+    case status
+
+    when :played
+      self.status   = true
+      self.playing  = false
+    when :playing
+      self.playing = true
+    end
+
+    self.save
+  end
 
   def set_detail
     if YT_REGEX =~ url
