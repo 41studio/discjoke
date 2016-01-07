@@ -17,6 +17,11 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToas
         templateUrl: 'home/index.html',
         controller: 'HomeController'
       })
+      .state('bossdj', {
+        url: '/bossdj',
+        templateUrl: 'djs/show.html',
+        controller: 'DjsController'
+      })
 
     $locationProvider.html5Mode({
       enabled: true,
