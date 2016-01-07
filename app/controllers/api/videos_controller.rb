@@ -4,11 +4,7 @@ class Api::VideosController < BaseApiController
 
     video.user_id = current_user_id
 
-    if video.save
-      render json: video, status: :ok
-    else
-      render json: { errors: video.errors.full_messages }, status: 400
-    end
+    save_and_response(video)
   end
 
   def index

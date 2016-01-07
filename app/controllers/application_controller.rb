@@ -14,4 +14,12 @@ class ApplicationController < ActionController::Base
     def set_user_id
       session[:user_id] ||= SecureRandom.hex(16)
     end
+
+    def save_and_response_to(model, status)
+      if status
+        render json: model, status: :ok
+      else
+        render json: { errors: model.errors.full_messages }, status: 400
+      end
+    end
 end

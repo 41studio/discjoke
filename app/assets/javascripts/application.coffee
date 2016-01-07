@@ -8,7 +8,7 @@
 #= require angular-sanitize/angular-sanitize.min
 #= require ngtoast/dist/ngToast.min
 #= require angular-youtube-mb/dist/angular-youtube-embed.min
-
+#= require angular-bootstrap/ui-bootstrap.min
 #= require angular-rails-templates
 
 #= require_tree ./app

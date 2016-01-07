@@ -4,12 +4,13 @@ var app = angular.module('BisPakApp', [
   'restangular.config',
   'pubnub.angular.service',
   'ngToast',
-  'youtube-embed'
+  'youtube-embed',
+  'ui.bootstrap'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToastProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider, ngToastProvider){
-    $urlRouterProvider.otherwise("/");
+    // $urlRouterProvider.otherwise("/");
 
     $stateProvider
       .state('home', {

@@ -4,7 +4,6 @@ app.controller('VideosController', ['$scope', '$rootScope', 'Restangular', 'ngTo
     $scope.video = {
       add: function(video){
         var request = Restangular.all('videos');
-        $scope.videos = Restangular.all('videos').getList().$object
         request.post({video: video}).then(function(video){
           PubNub.ngPublish({
             channel: 'playlist',
