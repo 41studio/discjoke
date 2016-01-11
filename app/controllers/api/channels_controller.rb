@@ -1,5 +1,6 @@
 class Api::ChannelsController < BaseApiController
   before_action :set_channel, only: [:remove, :update]
+  http_basic_authenticate_with name: "dhh", password: "secret", only: [:index]
 
   def index
     channels = Channel.active.newest.page(params[:page]).per(1)
