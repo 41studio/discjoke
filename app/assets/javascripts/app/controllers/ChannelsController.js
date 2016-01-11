@@ -4,17 +4,8 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$stat
     $scope.editFormState = false
     $scope.channel = { id: '', name: '', url: '', password: '' }
     $scope.index = [Restangular.all('channels').getList().$object]
-    $scope.current_page = 1
-
-    $scope.cancelEdit = function(){
-      $scope.channel = { id: '', name: '', url: '', password: '' }
-      $scope.editFormState = false
-    }
-
-    $scope.nextPage = function(current_page){
-      $scope.index.push(Restangular.all('channels').getList({page: current_page+1}).$object)
-      $scope.current_page = current_page+1
-    }
+    $scope.currentPage = 1
+    getTotalPage()
 
     $scope.channels = {
       create: function(channel){
@@ -22,7 +13,7 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$stat
         baseChannels.post(channel).then(function(channel){
           $scope.index.unshift(Restangular.all('channels').getList().$object)
           $scope.channel = { id: '', name: '', url: '', password: '' }
-
+          getTotalPage()
           ngToast.success('Channel added.')
         }, function(err){
           ngToast.danger(err.data.errors[0])
@@ -41,7 +32,7 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$stat
         baseChannels.put(channel).then(function(channel){
 
           $scope.index = [Restangular.all('channels').getList().$object]
-          $scope.current_page = 1
+          $scope.currentPage = 1
           $scope.channel = { id: '', name: '', url: '', password: '' }
           $scope.editFormState = false
 
@@ -54,9 +45,25 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$stat
         var baseChannels = Restangular.one('channels').one('remove', channel_id);
         baseChannels.put()
         $scope.index = [Restangular.all('channels').getList().$object]
-        $scope.current_page = 1
+        $scope.currentPage = 1
         ngToast.success('Channel successfully removed')
       }
+    }
+
+    $scope.cancelEdit = function(){
+      $scope.channel = { id: '', name: '', url: '', password: '' }
+      $scope.editFormState = false
+    }
+
+    $scope.nextPage = function(currentPage){
+      $scope.index.push(Restangular.all('channels').getList({page: currentPage+1}).$object)
+      $scope.currentPage = currentPage+1
+    }
+
+    function getTotalPage(){
+      Restangular.all('channels').one('get_page_count').get().then(function(channels){
+        $scope.totalCount = channels.page_count
+      })
     }
 
     $scope.isDj = function(){

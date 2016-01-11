@@ -1,5 +1,10 @@
 class Api::VideosController < BaseApiController
-  before_action :set_channel, only: [:create, :index, :get_page_count]
+
+  include Pagination
+
+  before_action :set_channel, only: [:create, :index,  :get_page_count]
+  before_action :set_video, only: [:show, :played]
+
   def create
 
     video = @channel.videos.create( url: params[:video][:url], user_id: current_user_id )
@@ -12,12 +17,10 @@ class Api::VideosController < BaseApiController
     render json: videos, status: :ok
   end
 
-  def show
-    render json: Video.find(params[:id]), status: :ok
-  end
+  def show; render json: @video, status: :ok; end
 
   def played
-    played_video = Video.find(params[:id])
+    played_video = @video
     played_video.mark_as(:played)
 
     next_video = Video.play_now
@@ -35,13 +38,13 @@ class Api::VideosController < BaseApiController
     render json: video, status: :ok
   end
 
-  def get_page_count
-    render json: {page_count: @channel.videos.count}, status: :ok
-  end
-
   private
     def set_channel
       @channel = Channel.find_by_url params[:channel_url]
+    end
+
+    def set_video
+      @video = Video.find params[:id]
     end
 
     def video_params

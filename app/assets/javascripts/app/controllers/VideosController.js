@@ -50,7 +50,7 @@ app.controller('VideosController', ['$scope', '$rootScope', 'Restangular', 'ngTo
     }
 
     function getTotalPage() {
-      Restangular.one('videos').one('get_page_count', paramsUrl).get().then(function(video){
+      Restangular.one('get_page_count', paramsUrl).get().then(function(video){
         $scope.total_count = video.page_count
       })
     }

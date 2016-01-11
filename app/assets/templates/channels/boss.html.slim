@@ -7,8 +7,7 @@ form novalidate=""
     input.form-control type="text" ng-model="channel.url" placeholder='contoh: dangdut'
   .formg-roup
     label Passoword:
-    input.form-control type="password" ng-model="channel.password" placeholder='contoh: rahasia' ng-if="!editFormState"
-    input.form-control type="text" ng-model="channel.password" placeholder='contoh: rahasia' ng-if="editFormState"
+    input.form-control type="password" ng-model="channel.password" placeholder='contoh: rahasia'
     label.hide ng-model="channel.id" ng-if="editFormState"
   hr
   button.btn.btn-success ng-click="channels.create(channel)" ng-if="!editFormState" Create
@@ -41,9 +40,9 @@ br
         button.btn.btn-danger ng-click='channels.remove(channel.id)' Delete
         button.btn.btn-success ng-click='channels.edit(channel)' Change
       .clearfix
-.row
+.row ng-if="totalCount!=currentPage"
   .col-md-12
-    button.btn.btn-default ng-click='nextPage(current_page)' style="width: 100%" Load More
+    button.btn.btn-default.jsChannelsLoader ng-click='nextPage(currentPage)' style="width: 100%" Load More
 br
 button type="button" class="btn btn-default" ng-click="open()" Open me!
 
