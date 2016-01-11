@@ -3,6 +3,8 @@ class Video < ActiveRecord::Base
 
   before_validation :set_detail
 
+  has_and_belongs_to_many :channels
+
   validates :url, presence: true
   validates_uniqueness_of :url, conditions: -> { where(status: false) }
   validates_format_of :url, with: YT_REGEX, message: 'Not valid youtube url.'

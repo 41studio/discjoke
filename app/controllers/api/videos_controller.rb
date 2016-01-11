@@ -1,14 +1,14 @@
 class Api::VideosController < BaseApiController
+  before_action :set_channel, only: [:create, :index]
   def create
-    video = Video.new(video_params)
 
-    video.user_id = current_user_id
+    video = @channel.videos.create( url: params[:video][:url], user_id: current_user_id )
 
-    save_and_response(video)
+    save_and_response_to(video.id.present?, video)
   end
 
   def index
-    videos = Video.all
+    videos  = @channel.present? ? @channel.videos: Video.all
     render json: videos, status: :ok
   end
 
@@ -36,6 +36,10 @@ class Api::VideosController < BaseApiController
   end
 
   private
+    def set_channel
+      @channel = Channel.find_by_url params[:channel_url]
+    end
+
     def video_params
       params.require(:video).permit(:url)
     end

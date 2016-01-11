@@ -1,12 +1,26 @@
-app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast',
-  function($scope, Restangular, ngToast){
+app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$stateParams', '$uibModal', 'PubNub',
+  function($scope, Restangular, ngToast, $stateParams,  $uibModal, PubNub){
+
+    $scope.editFormState = false
+    $scope.channel = { id: '', name: '', url: '', password: '' }
+    $scope.index = [Restangular.all('channels').getList().$object]
+    $scope.current_page = 1
+
+    $scope.cancelEdit = function(){
+      $scope.channel = { id: '', name: '', url: '', password: '' }
+      $scope.editFormState = false
+    }
+
+    $scope.nextPage = function(current_page){
+      $scope.index.push(Restangular.all('channels').getList({page: current_page+1}).$object)
+      $scope.current_page = current_page+1
+    }
 
     $scope.channels = {
       create: function(channel){
         var baseChannels = Restangular.all('channels');
         baseChannels.post(channel).then(function(channel){
-
-          $scope.index = Restangular.all('channels').getList().$object
+          $scope.index.unshift(Restangular.all('channels').getList().$object)
           $scope.channel = { id: '', name: '', url: '', password: '' }
 
           ngToast.success('Channel added.')
@@ -23,10 +37,11 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast',
 
       },
       update: function(channel){
-        var baseChannels = Restangular.one('channels', channel.id)
+        var baseChannels = Restangular.one('channels', channel.id);
         baseChannels.put(channel).then(function(channel){
 
-          $scope.index = Restangular.all('channels').getList().$object
+          $scope.index = [Restangular.all('channels').getList().$object]
+          $scope.current_page = 1
           $scope.channel = { id: '', name: '', url: '', password: '' }
           $scope.editFormState = false
 
@@ -38,17 +53,35 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast',
       remove: function(channel_id){
         var baseChannels = Restangular.one('channels').one('remove', channel_id);
         baseChannels.put()
-        $scope.index = Restangular.all('channels').getList().$object
+        $scope.index = [Restangular.all('channels').getList().$object]
+        $scope.current_page = 1
         ngToast.success('Channel successfully removed')
       }
     }
 
-    $scope.editFormState = false
-    $scope.channel = { id: '', name: '', url: '', password: '' }
-    $scope.index = Restangular.all('channels').getList().$object
-    $scope.cancelEdit = function(){
-      $scope.channel = { id: '', name: '', url: '', password: '' }
-      $scope.editFormState = false
+    $scope.isDj = function(){
+      if(window.location.hostname == 'localhost'){
+        return true;
+      }
+
+      return false;
+    }
+
+    if ($scope.isDj) {
+      $scope.playVideo = Restangular.one('videos').one('play').get().$object;
+
+      $scope.$on('youtube.player.ended', function(event, player){
+        var updateVideo = $scope.playVideo.put()
+
+        $scope.playVideo = updateVideo.$object;
+
+        PubNub.ngPublish({
+          channel: 'nowplaying',
+          message: true
+        })
+
+        player.playVideo();
+      })
     }
   }
 ]);

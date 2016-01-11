@@ -1,4 +1,4 @@
-.list-group ng-controller="VideosController"
+.list-group
   a.list-group-item ng-repeat="video in videos | orderBy:['-playing', 'status','created_at']" ng-class="{active: video.playing}" ng-href="{{video.url}}" target="_blank"
     .col-md-4
       img.img-rounded.img-responsive ng-src="{{video.thumbnail}}"

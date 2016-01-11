@@ -2,17 +2,23 @@ class Api::ChannelsController < BaseApiController
   before_action :set_channel, only: [:remove, :update]
 
   def index
-    channels = Channel.active.newest
+    channels = Channel.active.newest.page(params[:page]).per(1)
     render json: channels
+  end
+
+   def show
+    channel = Channel.find_by_url(params[:url])
+    save_and_response_to(channel, channel)
   end
 
   def create
     channel = Channel.new(channel_params)
-    save_and_response_to(channel, channel.save)
+    save_and_response_to(channel.save, channel)
   end
 
+  #FIXME: params not in group
   def update
-    save_and_response_to(@channel, @channel.update(channel_params_for_update))
+    save_and_response_to(@channel.update(channel_params_for_update), @channel)
   end
 
   def remove

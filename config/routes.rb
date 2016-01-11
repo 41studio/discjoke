@@ -3,7 +3,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :channels, only: [:create, :index, :update] do
-      put 'remove/:id', to: 'channels#remove', on: :collection
+      collection do
+        put 'remove/:id', to: 'channels#remove'
+        get 'show/:url', to: 'channels#show'
+      end
     end
     resources :videos do
       collection do

@@ -18,10 +18,17 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToas
         templateUrl: 'home/index.html',
         controller: 'HomeController'
       })
+
       .state('bossdj', {
         url: '/bossdj',
-        templateUrl: 'djs/show.html',
-        controller: 'DjsController'
+        templateUrl: 'channels/boss.html',
+        controller: 'ChannelsController'
+      })
+
+      .state('channel', {
+        url: '/:url',
+        templateUrl: 'channels/show.html',
+        controller: 'ChannelsController'
       })
 
     $locationProvider.html5Mode({
