@@ -3,7 +3,7 @@ class Api::ChannelsController < BaseApiController
   http_basic_authenticate_with name: "dhh", password: "secret", only: [:index]
 
   def index
-    channels = Channel.active.newest.page(params[:page]).per(1)
+    channels = Channel.active.newest.page(params[:page]).per(20)
     render json: channels
   end
 

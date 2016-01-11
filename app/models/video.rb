@@ -12,6 +12,10 @@ class Video < ActiveRecord::Base
   validate :check_limit
 
   scope :not_played, -> { order(created_at: :asc).where(status: false) }
+  scope :newest, -> { order(created_at: :desc) }
+  scope :order_by_now_playing, -> { order(playing: :desc) }
+  scope :order_by_playing_status, -> { order(:status) }
+  scope :order_by_playlist, -> { order_by_now_playing.order_by_playing_status.newest }
 
   def self.play_now; not_played.first end
 

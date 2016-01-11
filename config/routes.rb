@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       collection do
         get :play
         put 'play/:id', to: 'videos#played', as: :played
+        get 'get_page_count/:channel_url', to: 'videos#get_page_count'
       end
     end
   end

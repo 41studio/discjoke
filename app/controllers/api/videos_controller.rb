@@ -1,5 +1,5 @@
 class Api::VideosController < BaseApiController
-  before_action :set_channel, only: [:create, :index]
+  before_action :set_channel, only: [:create, :index, :get_page_count]
   def create
 
     video = @channel.videos.create( url: params[:video][:url], user_id: current_user_id )
@@ -8,7 +8,7 @@ class Api::VideosController < BaseApiController
   end
 
   def index
-    videos  = @channel.present? ? @channel.videos: Video.all
+    videos  = @channel.present? ? @channel.videos.order_by_playlist.page(params[:page]).per(1) : Video.all
     render json: videos, status: :ok
   end
 
@@ -33,6 +33,10 @@ class Api::VideosController < BaseApiController
       video.save
     end
     render json: video, status: :ok
+  end
+
+  def get_page_count
+    render json: {page_count: @channel.videos.count}, status: :ok
   end
 
   private
