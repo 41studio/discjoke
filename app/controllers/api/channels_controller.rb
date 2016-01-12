@@ -3,7 +3,6 @@ class Api::ChannelsController < BaseApiController
   include Pagination
 
   before_action :set_channel, only: [:remove, :update]
-  http_basic_authenticate_with name: "bossdj", password: "dj41kecehcelalu", only: [:index]
 
   def index
     channels = Channel.active.newest.page(params[:page]).per(1)

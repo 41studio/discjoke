@@ -40,7 +40,7 @@ br
         button.btn.btn-danger ng-click='channels.remove(channel.id)' Delete
         button.btn.btn-success ng-click='channels.edit(channel)' Change
       .clearfix
-.row ng-if="totalCount!=currentPage"
+.row ng-if="totalCount!=0 && totalCount!=currentPage"
   .col-md-12
     button.btn.btn-default.jsChannelsLoader ng-click='nextPage(currentPage)' style="width: 100%" Load More
 br

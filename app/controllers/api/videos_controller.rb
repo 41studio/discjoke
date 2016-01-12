@@ -13,7 +13,7 @@ class Api::VideosController < BaseApiController
   end
 
   def index
-    videos  = @channel.present? ? @channel.videos.order_by_playlist.page(params[:page]).per(1) : Video.all
+    videos  = @channel.present? ? @channel.videos.not_played.order_by_playlist.page(params[:page]).per(1) : Video.all
     render json: videos, status: :ok
   end
 

@@ -17,7 +17,7 @@ app.controller('VideosController', ['$scope', '$rootScope', 'Restangular', 'ngTo
     if($scope.isChannelActive){
       var baseUrl         = Restangular.all('videos')
       getTotalPage()
-      $scope.current_page = 1
+      $scope.currentPage  = 1
       $scope.videos       = [callVideosData()]
       $scope.newVideo     = { url: '' };
     }
@@ -27,31 +27,27 @@ app.controller('VideosController', ['$scope', '$rootScope', 'Restangular', 'ngTo
         baseUrl.post({video: video, channel_url: paramsUrl}).then(function(video){
 
         $scope.videos = [callVideosData()]
+        $scope.newVideo = { url: '' }
+        ngToast.success('Video added.')
 
-          $scope.newVideo = { url: '' }
-
-          ngToast.success('Video added.')
         }, function(err){
           ngToast.danger(err.data.errors[0])
         })
       }
     }
 
-    $scope.nextPage = function(current_page){
-      $scope.current_page = current_page+1
+    $scope.nextPage = function(currentPage){
+      $scope.currentPage = currentPage+1
       $scope.videos.push(callVideosData())
-      if($scope.total_count == current_page+1){
-        document.getElementsByClassName('jsVideosLoader')[0].remove()
-      }
     }
 
     function callVideosData(){
-      return baseUrl.getList({channel_url: paramsUrl, page: $scope.current_page }).$object
+      return baseUrl.getList({channel_url: paramsUrl, page: $scope.currentPage }).$object
     }
 
     function getTotalPage() {
-      Restangular.one('get_page_count', paramsUrl).get().then(function(video){
-        $scope.total_count = video.page_count
+      Restangular.one('videos').one('get_page_count', paramsUrl).one('videos').get().then(function(video){
+        $scope.totalCount = video.page_count
       })
     }
 

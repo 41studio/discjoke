@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   root 'pages#index'
+  get "/bossdj", to: 'pages#bossdj'
 
   namespace :api do
     resources :channels, only: [:create, :index, :update] do

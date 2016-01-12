@@ -8,6 +8,8 @@
         span.label.label-info ng-show="video.playing" #NP
         span.label.label-warning ng-show="video.status" #PLAYED
     .clearfix
-button.btn.btn-default.jsVideosLoader ng-click='nextPage(current_page)' style="width: 100%" Load More
+
+div ng-if="totalCount!=0 && totalCount!=currentPage"
+  button.btn.btn-default.jsVideosLoader ng-click='nextPage(currentPage)' style="width: 100%" Load More
 hr
 
