@@ -31,6 +31,12 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToas
         controller: 'ChannelsController'
       })
 
+      .state('channelDj', {
+        url: '/:url/dj',
+        templateUrl: 'channels/dj.html',
+        controller: 'DjsController'
+      })
+
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false

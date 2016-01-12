@@ -9,7 +9,7 @@ class Channel < ActiveRecord::Base
   scope :active, -> { where(status: 0) }
 
   def encrypt_password
-    self.password = Digest::SHA2.hexdigest("Adding #{url} and {password}") if password.present?
+    self.password = Digest::SHA2.hexdigest("Adding #{url} and #{password}") if password.present?
   end
 
   def parameterize_url; self.url = url.parameterize end

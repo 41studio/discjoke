@@ -2,7 +2,7 @@ class Api::ChannelsController < BaseApiController
 
   include Pagination
 
-  before_action :set_channel, only: [:remove, :update]
+  before_action :set_channel, only: [:remove, :update, :show, :sign_in]
 
   def index
     channels = Channel.active.newest.page(params[:page]).per(1)
@@ -10,8 +10,7 @@ class Api::ChannelsController < BaseApiController
   end
 
    def show
-    channel = Channel.find_by_url(params[:url])
-    save_and_response_to(channel, channel)
+    save_and_response_to(@channel, @channel)
   end
 
   def create
@@ -29,11 +28,19 @@ class Api::ChannelsController < BaseApiController
     render json: @channel, status: :ok
   end
 
+  def sign_in
+    password       = Digest::SHA2.hexdigest("Adding #{@channel.url} and #{params[:password]}")
+    valid_password = @channel.password.eql?(password)
+    save_and_response_to(valid_password, {is_password_valid: valid_password})
+  end
+
   private
 
     def set_channel
-      @channel = Channel.find(params[:id])
+      @channel =
+        params[:id].present? ? Channel.find(params[:id]) : Channel.find_by_url(params[:url])
     end
+
 
     def channel_params_for_update
       {id: params[:id], name: params[:name], url: params[:url], password: params[:password] }

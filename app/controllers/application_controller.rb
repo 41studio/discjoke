@@ -18,8 +18,10 @@ class ApplicationController < ActionController::Base
     def save_and_response_to(status, model)
       if status
         render json: model, status: :ok
-      elsif model.present?
+      elsif model.present? && (model.class.to_s.eql?('Channel') || model.class.to_s.eql?('Video'))
         render json: { errors: model.errors.full_messages }, status: 400
+      else
+        render json: model
       end
     end
 end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       collection do
         put 'remove/:id', to: 'channels#remove'
         get 'show/:url', to: 'channels#show'
+        get 'sign_in/:url', to: 'channels#sign_in'
         get 'get_page_count', to: 'channels#get_page_count'
       end
     end

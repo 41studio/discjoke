@@ -1,5 +1,5 @@
-app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$stateParams', '$uibModal', 'PubNub',
-  function($scope, Restangular, ngToast, $stateParams,  $uibModal, PubNub){
+app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibModal', 'PubNub',
+  function($scope, Restangular, ngToast, $uibModal, PubNub){
 
     $scope.editFormState = false
     $scope.channel = { id: '', name: '', url: '', password: '' }
