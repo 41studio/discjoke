@@ -22,7 +22,6 @@ gem 'angular_csrf'
 gem 'jbuilder'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'yt', '~> 0.25.5'
-gem 'kaminari'
 
 # gem 'therubyracer', platforms: :ruby
 
