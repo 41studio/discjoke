@@ -2,8 +2,8 @@
  *= require nprogress
  *= require nprogress-bootstrap
 
- *= require ngtoast/dist/ngToast.min
- *= require ngtoast/dist/ngToast-animations.min
+ *= require ngtoast/ngToast
+ *= require ngtoast/ngToast-animations
  */
 
 @import "bootstrap-sprockets";
