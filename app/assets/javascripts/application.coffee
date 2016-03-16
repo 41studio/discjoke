@@ -1,14 +1,14 @@
-#= require angular/angular.min
-#= require pubnub-angular/lib/pubnub-angular
+#= require angular/angular
+#= require pubnub-angular
 
-#= require angular-ui-router/release/angular-ui-router
-#= require lodash/lodash.min
-#= require restangular/dist/restangular.min
-#= require angular-animate/angular-animate.min
-#= require angular-sanitize/angular-sanitize.min
-#= require ngtoast/dist/ngToast.min
-#= require angular-youtube-mb/dist/angular-youtube-embed.min
-#= require angular-bootstrap/ui-bootstrap.min
+#= require angular-ui-router
+#= require lodash/lodash
+#= require restangular/restangular
+#= require angular-animate/angular-animate
+#= require angular-sanitize/angular-sanitize
+#= require ngtoast/ngToast
+#= require angular-youtube-mb/angular-youtube-embed
+#= require angular-bootstrap/ui-bootstrap
 #= require angular-rails-templates
 
 #= require_tree ./app
