@@ -1,5 +1,5 @@
-.list-group ng-repeat="video_per_page in videos"
-  a.list-group-item ng-repeat="video in video_per_page" ng-class="{active: video.playing}" ng-href="{{video.url}}" target="_blank"
+.list-group
+  a.list-group-item ng-repeat="video in videos | orderBy: '-created_at'" ng-class="{active: video.playing}" ng-href="{{video.url}}" target="_blank"
     .col-md-4
       img.img-rounded.img-responsive ng-src="{{video.thumbnail}}"
     .col-md-8
@@ -8,8 +8,3 @@
         span.label.label-info ng-show="video.playing" #NP
         span.label.label-warning ng-show="video.status" #PLAYED
     .clearfix
-
-div ng-if="totalCount!=0 && totalCount!=currentPage"
-  button.btn.btn-default.jsVideosLoader ng-click='nextPage(currentPage)' style="width: 100%" Load More
-hr
-

@@ -1,48 +1,51 @@
-form novalidate=""
-  .formg-roup
-    label Name:
-    input.form-control type="text" ng-model="channel.name" placeholder='contoh: Asep'
-  .formg-roup
-    label URL:
-    input.form-control type="text" ng-model="channel.url" placeholder='contoh: dangdut'
-  .formg-roup
-    label Passoword:
-    input.form-control type="password" ng-model="channel.password" placeholder='contoh: rahasia'
-    label.hide ng-model="channel.id" ng-if="editFormState"
-  hr
-  button.btn.btn-success ng-click="channels.create(channel)" ng-if="!editFormState" Create
-  button.btn.btn-primary ng-click="channels.update(channel)" ng-if="editFormState" Update
-  button.btn.btn-default ng-click="cancelEdit()" ng-if="editFormState" Cancel
-br
-.list-group style="padding: 1%"
-  .list-group-item.row
-    .col-md-2
-      b Name
-    .col-md-3
-      b URL
-    .col-md-2
-      b Password
-    .col-md-3
-      b Created at
-    .col-md-2
-  .div ng-repeat="indexs in index"
-    .list-group-item ng-repeat="channel in indexs | orderBy:['created_at']"
-      a ng-href="/{{channel.url}}" target="_blank"
-        .col-md-2 style='overflow: hidden'
-          | {{channel.name}}
-        .col-md-3 style='overflow: hidden'
-          | {{channel.url}}
-        .col-md-2 style='overflow: hidden'
-          | {{channel.password}}
-        .col-md-3 style='overflow: hidden'
-          | {{channel.created_at}}
-      .col-md-2
-        button.btn.btn-danger ng-click='channels.remove(channel.id)' Delete
-        button.btn.btn-success ng-click='channels.edit(channel)' Change
-      .clearfix
-.row ng-if="totalCount!=0 && totalCount!=currentPage"
+.col-md-6.col-md-offset-3
+  h1 New Channel
+  form novalidate=""
+    .form-group
+      label Name:
+      input.form-control type="text" ng-model="channel.name" placeholder='contoh: Asep'
+    .form-group
+      label URL:
+      input.form-control type="text" ng-model="channel.url" placeholder='contoh: dangdut'
+    .form-group
+      label Password:
+      input.form-control type="password" ng-model="channel.password" placeholder='contoh: rahasia'
+      label.hide ng-model="channel.id" ng-if="editFormState"
+    hr
+
+    div ng-if="!editFormState"
+      button.btn.btn-success ng-click="channels.create(channel)" Create
+    div ng-if="editFormState"
+      button.btn.btn-primary ng-click="channels.update(channel)" Update
+      button.btn.btn-default ng-click="cancelEdit()" Cancel
+
+.clearfix
+
+h1 List Channels
+table.table.table-striped.table-hover.table-bordered
+  thead
+    th Name
+    th URL
+    th Created At
+    th
+    th
+
+  tbody
+    tr ng-repeat="channel in allChannels | orderBy:['created_at']"
+      td
+        | {{channel.name}}
+      td
+        a ng-href="/{{channel.url}}" target="_blank" {{channel.url}}
+      td
+        | {{channel.created_at | date : 'mediumDate'}}
+      td
+        button.btn.btn-danger.btn-sm ng-click='channels.remove(channel.id)' Delete
+      td
+        button.btn.btn-success.btn-sm ng-click='channels.edit(channel)' Change
+
+.row
   .col-md-12
-    button.btn.btn-default.jsChannelsLoader ng-click='nextPage(currentPage)' style="width: 100%" Load More
+    button.btn.btn-default.btn-lg ng-click='nextPage()' style="width: 100%" Load More
 br
 button type="button" class="btn btn-default" ng-click="open()" Open me!
 

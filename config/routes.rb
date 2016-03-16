@@ -1,17 +1,14 @@
 Rails.application.routes.draw do
   root 'pages#index'
   get "/bossdj", to: 'pages#bossdj'
+  get "oauth2callback", to: 'accounts#oauth'
 
-  namespace :api do
-    resources :channels, only: [:create, :index, :update] do
-      collection do
-        put 'remove/:id', to: 'channels#remove'
-        get 'show/:url', to: 'channels#show'
-        get 'sign_in/:url', to: 'channels#sign_in'
-        get 'get_page_count', to: 'channels#get_page_count'
-      end
+  namespace :api, defaults: { format: :json } do
+    resources :channels do
+      resources :videos, only: :create
     end
-    resources :videos do
+
+    resources :videos, except: :create do
       collection do
         get :play
         put 'play/:id', to: 'videos#played', as: :played

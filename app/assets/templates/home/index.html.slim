@@ -1,1 +1,7 @@
 h1 Welcome
+
+.row
+  .col-md-6.col-md-offset-3
+    .list-group
+      a.list-group-item ui-sref="channel({id: channel.id})" ng-repeat="channel in channels"
+        | {{ channel.name }}

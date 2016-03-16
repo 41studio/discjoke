@@ -1,19 +1,7 @@
-.div ng-controller='VideosController'
-  .div ng-show='isChannelActive'
-    .row
-      div ng-include="'videos/new.html'"
+h1
+  | Channel {{channel.name}}
+hr
 
-      br
-      br
-      .clearfix
-    .row
-      .col-md-8.col-md-offset-2 ng-include="'videos/play.html'" ng-if="isDj()"
-      .clearfix
-    .row
-      .col-md-8.col-md-offset-2 ng-include="'videos/list.html'"
-    .row
-      div ng-include="'videos/new.html'"
-      br
-      br
-  .div ng-hide='isChannelActive'
-    h1 We tottemo sorry, this playlist is removed please contact superman
+.row
+  .col-md-7 ng-include="'videos/list.html'"
+  .col-md-5 ng-include="'videos/new.html'"

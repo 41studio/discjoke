@@ -2,15 +2,15 @@ class Api::ChannelsController < BaseApiController
 
   include Pagination
 
-  before_action :set_channel, only: [:remove, :update, :show, :sign_in]
+  before_action :set_channel, only: [:remove, :update, :sign_in]
 
   def index
-    channels = Channel.active.newest.page(params[:page]).per(1)
+    channels = Channel.newest
     render json: channels
   end
 
-   def show
-    save_and_response_to(@channel, @channel)
+  def show
+    @channel = Channel.includes(:videos).find(params[:id])
   end
 
   def create
@@ -37,8 +37,7 @@ class Api::ChannelsController < BaseApiController
   private
 
     def set_channel
-      @channel =
-        params[:id].present? ? Channel.find(params[:id]) : Channel.find_by_url(params[:url])
+      @channel = Channel.find(params[:id])
     end
 
 

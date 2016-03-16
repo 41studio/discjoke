@@ -1,5 +1,5 @@
-app.controller('HomeController', ['$scope', '$rootScope', 'Restangular', 'PubNub',
-  function($scope, $rootScope, Restangular, PubNub){
-
+app.controller('HomeController', ['$scope', '$rootScope', 'Restangular',
+  function($scope, $rootScope, Restangular){
+    $scope.channels = Restangular.all('channels').getList().$object
   }
 ])

@@ -6,10 +6,13 @@ class Api::VideosController < BaseApiController
   before_action :set_video, only: [:show, :played]
 
   def create
-
-    video = @channel.videos.create( url: params[:video][:url], user_id: current_user_id )
-
-    save_and_response_to(video.id.present?, video)
+    @video = Video.new(video_params.merge(user_id: current_user_id))
+    if @video.save
+      @channel.videos << @video
+      render :show, status: 201
+    else
+      render json: @video.errors.full_messages, status: 400
+    end
   end
 
   def index
@@ -17,7 +20,8 @@ class Api::VideosController < BaseApiController
     render json: videos, status: :ok
   end
 
-  def show; render json: @video, status: :ok; end
+  def show
+  end
 
   def played
     played_video = @video
@@ -40,7 +44,7 @@ class Api::VideosController < BaseApiController
 
   private
     def set_channel
-      @channel = Channel.find_by_url params[:channel_url]
+      @channel = Channel.find params[:channel_id]
     end
 
     def set_video

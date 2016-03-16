@@ -10,7 +10,7 @@ var app = angular.module('BisPakApp', [
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToastProvider',
   function($stateProvider, $urlRouterProvider, $locationProvider, ngToastProvider){
-    // $urlRouterProvider.otherwise("/");
+    $urlRouterProvider.otherwise("/");
 
     $stateProvider
       .state('home', {
@@ -26,13 +26,13 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToas
       })
 
       .state('channel', {
-        url: '/:url',
+        url: '/:id',
         templateUrl: 'channels/show.html',
-        controller: 'ChannelsController'
+        controller: 'ChannelController'
       })
 
       .state('channelDj', {
-        url: '/:url/dj',
+        url: '/:id/dj',
         templateUrl: 'channels/dj.html',
         controller: 'DjsController'
       })

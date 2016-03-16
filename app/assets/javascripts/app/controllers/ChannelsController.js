@@ -1,9 +1,10 @@
 app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibModal', 'PubNub',
   function($scope, Restangular, ngToast, $uibModal, PubNub){
 
+    $scope.allChannels = Restangular.all('channels').getList().$object
+
     $scope.editFormState = false
     $scope.channel = { id: '', name: '', url: '', password: '' }
-    $scope.index = [Restangular.all('channels').getList().$object]
     $scope.currentPage = 1
     getTotalPage()
 
@@ -55,9 +56,13 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibM
       $scope.editFormState = false
     }
 
-    $scope.nextPage = function(currentPage){
-      $scope.index.push(Restangular.all('channels').getList({page: currentPage+1}).$object)
-      $scope.currentPage = currentPage+1
+    $scope.nextPage = function(){
+      $scope.currentPage++
+      channels = Restangular.all('channels').getList({page: $scope.currentPage}).$object
+      // for(channel in channels){
+      //   console.log(channel)
+        // $scope.allChannels.push(channel)
+      // }
     }
 
     function getTotalPage(){
