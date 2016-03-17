@@ -36,7 +36,7 @@ class Video < ActiveRecord::Base
     if YT_REGEX =~ url
       video = Yt::Video.new(url: url)
 
-      self.title = video.title
+      self.title = video.title.truncate_words(10)
       self.duration = video.duration
       self.thumbnail = video.thumbnail_url('medium')
       self.description = video.description
