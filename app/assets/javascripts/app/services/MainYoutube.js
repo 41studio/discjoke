@@ -1,3 +1,5 @@
+(function(){
+
 // for handle 'player' youtube
 angular.module('DiscjokeApp')
 .service('MainYoutube', function(){
@@ -5,3 +7,5 @@ angular.module('DiscjokeApp')
     ytPlayer: null
   }
 })
+
+})();
