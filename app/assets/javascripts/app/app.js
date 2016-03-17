@@ -1,4 +1,4 @@
-var app = angular.module('BisPakApp', [
+var app = angular.module('DiscjokeApp', [
   'templates',
   'ui.router',
   'restangular.config',
