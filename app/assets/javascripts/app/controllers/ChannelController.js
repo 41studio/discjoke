@@ -16,7 +16,7 @@ app.controller('ChannelController', ['$rootScope', '$scope', 'Restangular', '$st
 
         Pubnub.publish({
           channel: 'playlist',
-          message: video.id
+          message: [video.id, 'add']
         })
 
         }, function(err){

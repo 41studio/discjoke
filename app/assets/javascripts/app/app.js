@@ -49,4 +49,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToas
       maxNumber: 5
     })
   }
-]);
+])
+.constant('_', window._)
+.run(function($rootScope){
+  $rootScope._ = window._
+})

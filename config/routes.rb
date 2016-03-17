@@ -11,9 +11,9 @@ Rails.application.routes.draw do
     end
 
     resources :videos, except: :create do
+      get :play, on: :member
+
       collection do
-        get :play
-        put 'play/:id', to: 'videos#played', as: :played
         get 'get_page_count/:channel_url/videos', to: 'videos#get_page_count'
       end
     end

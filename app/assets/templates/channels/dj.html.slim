@@ -1,4 +1,4 @@
-.col-md-4.col-md-offset-4 ng-if="!login_pass"
+.col-md-4.col-md-offset-4 ng-if="!dj_logged"
   .panel.panel-default
     .panel-heading.text-center Please prove you are the dj
     .panel-body
@@ -7,7 +7,7 @@
           input id="password" class="form-control" type='password' placeholder="password" autofocus="true"
         input.btn.btn-default type='submit' value="Log in"
 
-div ng-if="login_pass"
+div ng-if="dj_logged"
   h1
     | Channel {{channel.name}} ({{videos.length}} videos)
   hr

@@ -3,7 +3,7 @@ class Video < ActiveRecord::Base
 
   before_validation :set_detail
 
-  has_and_belongs_to_many :channels
+  belongs_to :channel
 
   validates :url, presence: true
   validates_uniqueness_of :url, conditions: -> { where(status: false) }
@@ -17,7 +17,13 @@ class Video < ActiveRecord::Base
   scope :order_by_playing_status, -> { order(:status) }
   scope :order_by_playlist, -> { order_by_now_playing.order_by_playing_status.newest }
 
-  def self.play_now; not_played.first end
+  def self.play_now
+    not_played.first
+  end
+
+  def videos
+    channel.videos
+  end
 
   def mark_as(status)
     case status
@@ -49,5 +55,10 @@ class Video < ActiveRecord::Base
     if self.new_record? && videos.count > 5
       errors.add(:user_id, 'request has 5 videos')
     end
+  end
+
+  def play!
+    videos.update_all(playing: false)
+    self.update(playing: true)
   end
 end

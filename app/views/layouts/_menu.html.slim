@@ -8,5 +8,3 @@ nav.navbar.navbar-default
           a ui-sref="home"
             | Home
             span.sr-only (current)
-        li
-          = link_to 'Authenticate', Yt::Account.new(scopes: ['youtube'],redirect_uri: "http://lvh.me:3000/oauth2callback").authentication_url

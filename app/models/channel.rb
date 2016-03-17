@@ -3,7 +3,7 @@ class Channel < ActiveRecord::Base
 
   before_save :encrypt_password, :parameterize_url
 
-  has_and_belongs_to_many :videos
+  has_many :videos, dependent: :destroy
 
   scope :newest, -> { order(created_at: :desc) }
   scope :active, -> { where(status: 0) }
