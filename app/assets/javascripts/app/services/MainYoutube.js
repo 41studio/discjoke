@@ -1,4 +1,5 @@
 (function(){
+  'use strict'
 
 // for handle 'player' youtube
 angular.module('DiscjokeApp')

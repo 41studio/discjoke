@@ -51,6 +51,8 @@ app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToas
   }
 ])
 .constant('_', window._)
-.run(function($rootScope){
-  $rootScope._ = window._
-})
+.run(['$rootScope',
+  function($rootScope){
+    $rootScope._ = window._
+  }
+])
