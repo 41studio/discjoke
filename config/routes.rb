@@ -6,6 +6,8 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     resources :channels do
       resources :videos, only: :create
+
+      post "sign_in", on: :member
     end
 
     resources :videos, except: :create do

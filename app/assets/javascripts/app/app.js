@@ -5,7 +5,8 @@ var app = angular.module('BisPakApp', [
   'pubnub.angular.service',
   'ngToast',
   'youtube-embed',
-  'ui.bootstrap'
+  'ui.bootstrap',
+  'ngCookies'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToastProvider',

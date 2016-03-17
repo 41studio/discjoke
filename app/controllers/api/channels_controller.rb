@@ -31,7 +31,12 @@ class Api::ChannelsController < BaseApiController
   def sign_in
     password       = Digest::SHA2.hexdigest("Adding #{@channel.url} and #{params[:password]}")
     valid_password = @channel.password.eql?(password)
-    save_and_response_to(valid_password, {is_password_valid: valid_password})
+
+    if valid_password
+      render json: { is_password_valid: true }, status: 200
+    else
+      render json: { is_password_valid: false }, status: 401
+    end
   end
 
   private
