@@ -1,5 +1,5 @@
 .list-group
-  .list-group-item ng-repeat="video in videos | orderBy: '-playing'" ng-class="{active: video.playing}"
+  .list-group-item ng-repeat="video in videos | orderBy: 'id'" ng-class="{active: video.playing}"
     .row
       .col-md-4
         img.img-rounded.img-responsive ng-src="{{video.thumbnail}}"

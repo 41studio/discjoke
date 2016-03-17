@@ -10,6 +10,8 @@
 div ng-if="dj_logged"
   h1
     | Channel {{channel.name}} ({{videos.length}} videos)
+    small
+      a.pull-right href="#" ng-click="logout()" Logout
   hr
   .row
     .col-md-6 ng-include="'videos/list.html'"

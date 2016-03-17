@@ -39,6 +39,11 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
           ngToast.success('Video deleted.')
         })
       }
+
+      $scope.logout = function(){
+        $cookies.remove('dj')
+        $rootScope.dj_logged = undefined
+      }
     }
 
     // Check channel status if active change isChannelActive

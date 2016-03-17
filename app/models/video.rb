@@ -22,7 +22,7 @@ class Video < ActiveRecord::Base
   end
 
   def videos
-    channel.videos
+    Video.where(channel_id: channel_id).order(id: :asc)
   end
 
   def mark_as(status)
@@ -60,5 +60,13 @@ class Video < ActiveRecord::Base
   def play!
     videos.update_all(playing: false)
     self.update(playing: true)
+  end
+
+  def next
+    videos.where('id > ?', self.id).first
+  end
+
+  def prev
+    videos.where('id < ?', self.id)
   end
 end
