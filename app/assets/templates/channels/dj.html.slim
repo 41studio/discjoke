@@ -14,11 +14,12 @@ div ng-if="dj_logged"
       a.pull-right href="#" ng-click="logout()" Logout
   hr
   .row
-    .col-md-6 ng-include="'videos/list.html'"
-    .col-md-6
-      div ng-include="'videos/play.html'"
-      .form-group
-        .btn-group ng-hide="!playVideo.id"
-          a.btn.btn-default ng-click="prevVideo()" href="" Prev
-          a.btn.btn-default ng-click="nextVideo()" href="" Next
-      div ng-include="'videos/new.html'"
+    .col-md-7 ng-include="'videos/list.html'"
+    .col-md-5
+      .fixed-widget
+        div ng-include="'videos/play.html'"
+        .form-group
+          .btn-group ng-hide="!playVideo.id"
+            a.btn.btn-default ng-click="prevVideo()" href="" Prev
+            a.btn.btn-default ng-click="nextVideo()" href="" Next
+        div ng-include="'videos/new.html'"
