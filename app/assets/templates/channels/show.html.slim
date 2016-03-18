@@ -4,4 +4,11 @@ hr
 
 .row
   .col-md-7 ng-include="'videos/list.html'"
-  .col-md-5 ng-include="'videos/new.html'"
+  .col-md-5
+    .form-group ng-include="'videos/new.html'"
+    .panel.panel-default
+      .panel-heading Now Playing
+      .panel-body
+        h4
+          | {{playingVideo.title}}
+        img.img-responsive ng-src="{{playingVideo.thumbnail}}" style="width:100%"

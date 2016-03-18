@@ -4,6 +4,7 @@ app.controller('ChannelController', ['$rootScope', '$scope', 'Restangular', '$st
     Restangular.one("channels", channelId).get().then(function(channel){
       $scope.videos = channel.videos
       $scope.channel = channel
+      $scope.playingVideo = _.find($scope.videos, { playing: true })
     })
 
     // form video
@@ -34,6 +35,7 @@ app.controller('ChannelController', ['$rootScope', '$scope', 'Restangular', '$st
       $scope.$apply(function(){
         Restangular.one("channels", channelId).get().then(function(channel){
           $scope.videos = channel.videos
+          $scope.playingVideo = _.find($scope.videos, { playing: true })
         })
       })
     })

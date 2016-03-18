@@ -91,10 +91,15 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
       if (play != undefined) {
         _.update(play, 'playing', function(n){ return false })
       }
+
+      Pubnub.publish({
+        channel: 'playlist',
+        message: [video.id, 'playlist']
+      })
     }
 
-    $scope.$on('youtube.player.paused', function($event, player){
-      console.log('paused')
+    $scope.$on('youtube.player.ended', function($event, player){
+      controlVideos('next')
     })
 
     //
