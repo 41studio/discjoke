@@ -59,7 +59,8 @@ class Video < ActiveRecord::Base
 
   def play!
     videos.update_all(playing: false)
-    self.update(playing: true)
+    self.playing = true
+    self.save validate: false
   end
 
   def next
