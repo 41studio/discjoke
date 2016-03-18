@@ -28,13 +28,15 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
       }
 
       $scope.delete = function(id){
+        controlVideos('next')
+
         Restangular.one('videos', id).remove().then(function(){
           _.remove($scope.videos, { id: id })
 
-          Pubnub.publish({
-            channel: 'playlist',
-            message: [id, 'delete']
-          })
+          // Pubnub.publish({
+          //   channel: 'playlist',
+          //   message: [id, 'delete']
+          // })
 
           ngToast.success('Video deleted.')
         })

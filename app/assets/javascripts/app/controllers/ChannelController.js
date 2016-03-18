@@ -1,6 +1,7 @@
 app.controller('ChannelController', ['$rootScope', '$scope', 'Restangular', '$stateParams', 'ngToast', 'Pubnub',
   function($rootScope, $scope, Restangular, $stateParams, ngToast, Pubnub){
     channelId = $stateParams.id
+    $scope.newVideo = {}
     Restangular.one("channels", channelId).get().then(function(channel){
       $scope.videos = channel.videos
       $scope.channel = channel
