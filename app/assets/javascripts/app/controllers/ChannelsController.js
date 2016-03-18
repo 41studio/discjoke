@@ -1,12 +1,12 @@
-app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibModal', 'PubNub',
-  function($scope, Restangular, ngToast, $uibModal, PubNub){
+app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibModal',
+  function($scope, Restangular, ngToast, $uibModal){
 
     $scope.allChannels = Restangular.all('channels').getList().$object
 
     $scope.editFormState = false
     $scope.channel = { id: '', name: '', url: '', password: '' }
     $scope.currentPage = 1
-    getTotalPage()
+    // getTotalPage()
 
     $scope.channels = {
       create: function(channel){
@@ -68,31 +68,6 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibM
     function getTotalPage(){
       Restangular.all('channels').one('get_page_count').get().then(function(channels){
         $scope.totalCount = channels.page_count
-      })
-    }
-
-    $scope.isDj = function(){
-      if(window.location.hostname == 'localhost'){
-        return true;
-      }
-
-      return false;
-    }
-
-    if ($scope.isDj) {
-      $scope.playVideo = Restangular.one('videos').one('play').get().$object;
-
-      $scope.$on('youtube.player.ended', function(event, player){
-        var updateVideo = $scope.playVideo.put()
-
-        $scope.playVideo = updateVideo.$object;
-
-        PubNub.ngPublish({
-          channel: 'nowplaying',
-          message: true
-        })
-
-        player.playVideo();
       })
     }
   }
