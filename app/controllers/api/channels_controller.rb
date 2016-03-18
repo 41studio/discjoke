@@ -5,8 +5,7 @@ class Api::ChannelsController < BaseApiController
   before_action :set_channel, only: [:destroy, :update, :sign_in]
 
   def index
-    channels = Channel.newest
-    render json: channels
+    @channels = Channel.all
   end
 
   def show

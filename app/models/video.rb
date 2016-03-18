@@ -6,7 +6,7 @@ class Video < ActiveRecord::Base
   belongs_to :channel
 
   validates :url, presence: true
-  validates_uniqueness_of :url, conditions: -> { where(status: false) }
+  validates_uniqueness_of :url, if: Proc.new {|video| Video.where(channel_id: video.channel_id, url: video.url).first }
   validates_format_of :url, with: YT_REGEX, message: 'Not valid youtube url.'
   validates_numericality_of :duration, less_than_or_equal_to: 420, message: 'should less than 7 minutes.'
   validate :check_limit
