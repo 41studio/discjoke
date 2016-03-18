@@ -40,6 +40,14 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
         })
       }
 
+      $scope.nextVideo = function(){
+        controlVideos('next')
+      }
+
+      $scope.prevVideo = function(){
+        controlVideos('prev')
+      }
+
       $scope.logout = function(){
         $cookies.remove('dj')
         $rootScope.dj_logged = undefined
@@ -63,6 +71,15 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
         ngToast.success("Log in success")
       }, function(err){
         ngToast.danger("password is incorrect")
+      })
+    }
+
+    controlVideos = function(type){
+      Restangular.one('videos', $scope.playVideo.id).post(type).then(function(video){
+        $scope.playVideo = video
+        ytId = youtubeEmbedUtils.getIdFromURL(video.url)
+        MainYoutube.ytPlayer.loadVideoById(ytId)
+        updateListVideos(video)
       })
     }
 

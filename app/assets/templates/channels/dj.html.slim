@@ -18,7 +18,7 @@ div ng-if="dj_logged"
     .col-md-6
       div ng-include="'videos/play.html'"
       .form-group
-        .btn-group
-          a.btn.btn-default href="" Prev
-          a.btn.btn-default href="" Next
+        .btn-group ng-hide="!playVideo.id"
+          a.btn.btn-default ng-click="prevVideo()" href="" Prev
+          a.btn.btn-default ng-click="nextVideo()" href="" Next
       div ng-include="'videos/new.html'"

@@ -63,10 +63,20 @@ class Video < ActiveRecord::Base
   end
 
   def next
-    videos.where('id > ?', self.id).first
+    video = Video.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
+    if video.present?
+      video
+    else
+      channel.videos.first
+    end
   end
 
   def prev
-    videos.where('id < ?', self.id)
+    video = Video.order(id: :asc).where("id < ? AND channel_id = ?", id, channel_id).first
+    if video.present?
+      video
+    else
+      channel.videos.last
+    end
   end
 end
