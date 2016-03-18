@@ -8,10 +8,10 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibM
 
     $scope.channels = {
       create: function(channel){
-        var baseChannels = Restangular.all('channels');
-        baseChannels.post(channel).then(function(channel){
+        Restangular.all('channels').post(channel).then(function(channel){
           $scope.channel = { id: '', name: '', url: '', password: '' }
           ngToast.success('Channel added.')
+          $scope.allChannels.push(channel)
         }, function(err){
           ngToast.danger(err.data.errors[0])
         })
