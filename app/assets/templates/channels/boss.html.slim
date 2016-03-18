@@ -10,7 +10,7 @@
     .form-group
       label Password:
       input.form-control type="password" ng-model="channel.password" placeholder='contoh: rahasia'
-      label.hide ng-model="channel.id" ng-if="editFormState"
+      input type="hidden" ng-model="channel.id" ng-if="editFormState"
     hr
 
     div ng-if="!editFormState"

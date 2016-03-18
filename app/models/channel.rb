@@ -8,6 +8,8 @@ class Channel < ActiveRecord::Base
   scope :newest, -> { order(created_at: :desc) }
   scope :active, -> { where(status: 0) }
 
+  validates :name, :url, :password, presence: true
+
   def encrypt_password
     self.password = Digest::SHA2.hexdigest("Adding #{url} and #{password}") if password.present?
   end

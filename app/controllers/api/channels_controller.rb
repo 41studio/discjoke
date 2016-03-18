@@ -2,7 +2,7 @@ class Api::ChannelsController < BaseApiController
 
   include Pagination
 
-  before_action :set_channel, only: [:remove, :update, :sign_in]
+  before_action :set_channel, only: [:destroy, :update, :sign_in]
 
   def index
     channels = Channel.newest
@@ -18,14 +18,17 @@ class Api::ChannelsController < BaseApiController
     save_and_response_to(channel.save, channel)
   end
 
-  #FIXME: params not in group
   def update
-    save_and_response_to(@channel.update(channel_params_for_update), @channel)
+    if @channel.update(channel_params)
+      render json: @channel, status: 200
+    else
+      render json: @channel.errors.full_messages, status: 401
+    end
   end
 
-  def remove
-    @channel.inactive!
-    render json: @channel, status: :ok
+  def destroy
+    @channel.destroy
+    head 204
   end
 
   def sign_in
@@ -43,11 +46,6 @@ class Api::ChannelsController < BaseApiController
 
     def set_channel
       @channel = Channel.find(params[:id])
-    end
-
-
-    def channel_params_for_update
-      {id: params[:id], name: params[:name], url: params[:url], password: params[:password] }
     end
 
     def channel_params
