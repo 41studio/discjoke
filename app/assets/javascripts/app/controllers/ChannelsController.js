@@ -17,14 +17,30 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibM
         })
       },
       edit: function(channel){
-        $scope.channel = {
+        $scope.editChannel = {
           id: channel.id,
           name: channel.name,
           url: channel.url,
           password: ''
         }
 
-        $scope.editFormState = true
+        // $scope.editFormState = true
+        var modalInstance = $uibModal.open({
+          templateUrl: 'edit.html',
+          controller: 'EditChannelController',
+          animation: true,
+          resolve: {
+            channel: function(){
+              return $scope.editChannel
+            }
+          }
+        })
+
+        modalInstance.result.then(function(channel){
+          _.remove($scope.allChannels, { id: channel.id })
+          $scope.allChannels.push(channel)
+          ngToast.success('Channel Updated.')
+        })
       },
       update: function(channel){
         Restangular.one('channels', channel.id).patch({channel: channel}).then(function(channel){

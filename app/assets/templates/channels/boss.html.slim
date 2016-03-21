@@ -47,16 +47,24 @@ table.table.table-striped.table-hover.table-bordered
   .col-md-12
     button.btn.btn-default.btn-lg ng-click='nextPage()' style="width: 100%" Load More
 br
-button type="button" class="btn btn-default" ng-click="open()" Open me!
 
-script type="text/ng-template" id="myModalContent.html"
-  div class="modal-header"
-    h3 class="modal-title" Im a modal!
-  div class="modal-body"
-    ul
-      li ng-repeat="item in items"
-        a href="#" ng-click="$event.preventDefault(); selected.item = item">{{ item }}
-    | Selected:
-    | {{ selected.item }}
-  div class="modal-footer"
+script type="text/ng-template" id="edit.html"
+  form novalidate="" ng-submit="updateChannel(channel)"
+    div class="modal-header"
+      h3 class="modal-title"
+        | Edit {{channel.name}} Channel
+    div class="modal-body"
+      .form-group
+        label Name:
+        input.form-control type="text" ng-model="channel.name" placeholder='contoh: Asep'
+      .form-group
+        label URL:
+        input.form-control type="text" ng-model="channel.url" placeholder='contoh: dangdut'
+      .form-group
+        label Password:
+        input.form-control type="password" ng-model="channel.password" placeholder='contoh: rahasia'
+        input type="hidden" ng-model="channel.id" ng-if="editFormState"
 
+    div class="modal-footer"
+      input.btn.btn-primary type="submit" value="Update"
+      a.btn.btn-danger ng-click="cancel()" Cancel
