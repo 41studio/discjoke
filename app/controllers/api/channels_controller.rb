@@ -9,7 +9,7 @@ class Api::ChannelsController < BaseApiController
   end
 
   def show
-    @channel = Channel.includes(:videos).find(params[:id])
+    @channel = Channel.includes(:videos).find_by url: params[:id]
   end
 
   def create
@@ -44,7 +44,7 @@ class Api::ChannelsController < BaseApiController
   private
 
     def set_channel
-      @channel = Channel.find(params[:id])
+      @channel = Channel.find_by(url: params[:id])
     end
 
     def channel_params

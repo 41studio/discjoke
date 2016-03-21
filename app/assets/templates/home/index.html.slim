@@ -2,5 +2,5 @@
   .col-md-6.col-md-offset-3
     h1 List Channels
     .list-group
-      a.list-group-item ui-sref="channel({id: channel.id})" ng-repeat="channel in channels"
+      a.list-group-item ui-sref="channel({id: channel.url})" ng-repeat="channel in channels"
         | {{ channel.name }} ({{channel.videos_count}} videos)
