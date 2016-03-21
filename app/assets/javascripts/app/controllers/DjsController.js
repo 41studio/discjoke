@@ -53,6 +53,24 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
         $cookies.remove('dj')
         $rootScope.dj_logged = undefined
       }
+
+      $scope.video = {
+        add: function(video){
+          Restangular.one('channels', channelId).all('videos').post({video: video}).then(function(video){
+
+          $scope.newVideo = {}
+          ngToast.success('Video added.')
+
+          Pubnub.publish({
+            channel: 'playlist',
+            message: [video.id, 'add']
+          })
+
+          }, function(err){
+            ngToast.danger(err.data[0])
+          })
+        }
+      }
     }
 
     // logged dj
