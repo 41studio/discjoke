@@ -46,7 +46,7 @@ class Api::VideosController < BaseApiController
 
   private
     def set_channel
-      @channel = Channel.find params[:channel_id]
+      @channel = Channel.find_by url: params[:channel_id]
     end
 
     def set_video
