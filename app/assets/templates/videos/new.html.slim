@@ -1,4 +1,4 @@
-form ng-submit="video.add(newVideo)"
+form ng-submit="video.add(newVideo)" ng-init="newVideo = { url: '' }"
   .input-group
     input.form-control type="text" placeholder="Contoh: https://www.youtube.com/watch?v=anMYu17aZT4" ng-model="newVideo.url" autofocus=""
     span.input-group-btn
