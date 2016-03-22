@@ -30,7 +30,9 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
       $scope.delete = function(id){
         var msg = confirm('Are you sure?')
         if (msg) {
-          controlVideos('next')
+          if($scope.playVideo.id == id){
+            controlVideos('next')
+          }
 
           Restangular.one('videos', id).remove().then(function(){
             _.remove($scope.videos, { id: id })
