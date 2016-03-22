@@ -22,6 +22,7 @@ gem 'jbuilder'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'yt', '~> 0.25.5'
 gem 'puma'
+gem 'bootswatch-rails'
 
 # gem 'therubyracer', platforms: :ruby
 
