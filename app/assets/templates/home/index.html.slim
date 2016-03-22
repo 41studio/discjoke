@@ -1,5 +1,16 @@
 .row
-  .col-md-6.col-md-offset-3
+  .col-md-8.col-md-offset-2
+    h1 Welcome to DiscJoke
+
+    p No, it's not joke, this is application to create personal playlist for playing loved videos from Youtube.
+
+    h3 Found bugs or have ideas to add some features?
+
+    p
+      | Please create issue in
+      a href="https://github.com/41studio/discjoke/issues"  https://github.com/41studio/discjoke/issues
+
+    hr
     h1 List Channels
     .list-group
       a.list-group-item ui-sref="channel({id: channel.url})" ng-repeat="channel in channels"
