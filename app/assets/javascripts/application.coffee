@@ -1,6 +1,9 @@
 #= require angular/angular
 #= require pubnub-angular
 
+#= require nprogress
+#= require nprogress-angular
+
 #= require angular-ui-router
 #= require lodash/lodash
 #= require restangular/restangular
