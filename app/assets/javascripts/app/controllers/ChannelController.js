@@ -1,7 +1,7 @@
 app.controller('ChannelController', ['$rootScope', '$scope', 'Restangular', '$stateParams', 'ngToast', 'Pubnub',
   function($rootScope, $scope, Restangular, $stateParams, ngToast, Pubnub){
     channelId = $stateParams.id
-    $scope.newVideo = {}
+    $scope.newVideo = { url: '' }
     Restangular.one("channels", channelId).get().then(function(channel){
       $scope.videos = channel.videos
       $scope.channel = channel
@@ -10,11 +10,11 @@ app.controller('ChannelController', ['$rootScope', '$scope', 'Restangular', '$st
 
     // form video
     $scope.video = {
-      add: function(video){
-        Restangular.one('channels', channelId).all('videos').post({video: video}).then(function(video){
+      add: function(){
+        Restangular.one('channels', channelId).all('videos').post({video: $scope.newVideo}).then(function(video){
 
-        $scope.newVideo = {}
         ngToast.success('Video added.')
+        $scope.newVideo = { url: '' }
 
         Pubnub.publish({
           channel: 'playlist',
