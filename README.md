@@ -12,6 +12,11 @@ Create playlist for playing loved videos from youtube
 * [Slim Ruby Template](https://github.com/slim-template/slim-rails)
 * [Pubnub](https://www.pubnub.com/)
 
+## Features
+* Create playlist by adding youtube url such as *https://www.youtube.com/watch?v=DokUjuZmpCE*
+* Realtime adding video.
+* Realtime *now playing* video from DJ or player video.
+
 ## Installation to local computer
 
 * Clone discjoke to your local machine
