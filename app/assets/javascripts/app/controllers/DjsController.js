@@ -5,6 +5,7 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
     $rootScope.dj_logged = $cookies.get('dj')
 
     initChannel = function(){
+      $scope.newVideo = { url: '' }
       $scope.MainYoutube = MainYoutube
 
       Restangular.one('channels', channelId).get().then(function(channel){
@@ -27,18 +28,23 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
       }
 
       $scope.delete = function(id){
-        controlVideos('next')
+        var msg = confirm('Are you sure?')
+        if (msg) {
+          controlVideos('next')
 
-        Restangular.one('videos', id).remove().then(function(){
-          _.remove($scope.videos, { id: id })
+          Restangular.one('videos', id).remove().then(function(){
+            _.remove($scope.videos, { id: id })
 
-          // Pubnub.publish({
-          //   channel: 'playlist',
-          //   message: [id, 'delete']
-          // })
+            // Pubnub.publish({
+            //   channel: 'playlist',
+            //   message: [id, 'delete']
+            // })
 
-          ngToast.success('Video deleted.')
-        })
+            ngToast.success('Video deleted.')
+          })
+        }else{
+          return false
+        }
       }
 
       $scope.nextVideo = function(){
@@ -54,11 +60,22 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
         $rootScope.dj_logged = undefined
       }
 
-      $scope.video = {
-        add: function(video){
-          Restangular.one('channels', channelId).all('videos').post({video: video}).then(function(video){
+      $scope.banned = function(videoId){
+        var msg = confirm('Are you sure?')
+        if (msg) {
+          Restangular.one('videos', videoId).post('banned').then(function(video){
+            updateListVideos(video)
+          })
+        }else{
+          return false
+        }
+      }
 
-          $scope.newVideo = {}
+      $scope.video = {
+        add: function(){
+          Restangular.one('channels', channelId).all('videos').post({video: $scope.newVideo}).then(function(video){
+
+          $scope.newVideo = { url: '' }
           ngToast.success('Video added.')
 
           Pubnub.publish({

@@ -6,7 +6,7 @@ class Video < ActiveRecord::Base
   belongs_to :channel
 
   validates :url, presence: true
-  validates_uniqueness_of :url, if: Proc.new {|video| Video.where(channel_id: video.channel_id, url: video.url).first }
+  validates :url, uniqueness: { scope: :channel_id }
   validates_format_of :url, with: YT_REGEX, message: 'Not valid youtube url.'
   validates_numericality_of :duration, less_than_or_equal_to: 420, message: 'should less than 7 minutes.'
   validate :check_limit
@@ -16,13 +16,14 @@ class Video < ActiveRecord::Base
   scope :order_by_now_playing, -> { order(playing: :desc) }
   scope :order_by_playing_status, -> { order(:status) }
   scope :order_by_playlist, -> { order_by_now_playing.order_by_playing_status.newest }
+  scope :not_banned, -> { where(banned: false) }
 
   def self.play_now
     not_played.first
   end
 
   def videos
-    Video.where(channel_id: channel_id).order(id: :asc)
+    Video.not_banned.where(channel_id: channel_id).order(id: :asc)
   end
 
   def mark_as(status)
@@ -57,6 +58,10 @@ class Video < ActiveRecord::Base
     end
   end
 
+  def banned!
+    self.update(banned: true)
+  end
+
   def play!
     videos.update_all(playing: false)
     self.playing = true
@@ -64,20 +69,20 @@ class Video < ActiveRecord::Base
   end
 
   def next
-    video = Video.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
+    video = Video.not_banned.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
     if video.present?
       video
     else
-      channel.videos.first
+      channel.videos.not_banned.first
     end
   end
 
   def prev
-    video = Video.order(id: :asc).where("id < ? AND channel_id = ?", id, channel_id).first
+    video = Video.not_banned.order(id: :asc).where("id < ? AND channel_id = ?", id, channel_id).first
     if video.present?
       video
     else
-      channel.videos.last
+      channel.videos.not_banned.last
     end
   end
 end

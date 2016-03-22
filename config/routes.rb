@@ -15,6 +15,7 @@ Rails.application.routes.draw do
         get :play
         post :next
         post :prev
+        post :banned
       end
     end
   end

@@ -10,6 +10,17 @@
           span.label.label-warning ng-show="video.status" #PLAYED
         .list-group-item-text
           .btn-group
-            a.btn.btn-sm.btn-danger ng-href="{{video.url}}" target="_blank" Youtube
-            a.btn.btn-sm.btn-danger ng-if="dj_logged" ng-click="delete(video.id)" Delete
-            a.btn.btn-sm.btn-info ng-if="dj_logged" ng-click="play(video.id)" Play Now
+            a.btn.btn-sm.btn-info ng-href="{{video.url}}" target="_blank" Youtube
+            a.btn.btn-sm.btn-success ng-if="dj_logged" ng-click="play(video.id)" Play Now
+
+          .btn-group uib-dropdown="" ng-if="dj_logged" is-open="false"
+            button.btn.btn-sm.btn-danger.dropdown-toggle data-toggle="dropdown" uib-dropdown-toggle=""
+              | Action
+              span.caret
+
+            ul.dropdown-menu uib-dropdown-menu=""
+              li
+                a href="#" ng-if="dj_logged" ng-click="banned(video.id)" Banned!
+              li
+                a href="#" ng-if="dj_logged" ng-click="delete(video.id)" Delete
+

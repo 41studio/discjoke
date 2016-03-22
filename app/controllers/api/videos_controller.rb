@@ -3,7 +3,7 @@ class Api::VideosController < BaseApiController
   include Pagination
 
   before_action :set_channel, only: [:create, :index,  :get_page_count]
-  before_action :set_video, only: [:show, :played, :play, :destroy, :next, :prev]
+  before_action :set_video, only: [:show, :played, :play, :destroy, :next, :prev, :banned]
 
   def create
     @video = @channel.videos.new(video_params.merge(user_id: current_user_id))
@@ -30,6 +30,11 @@ class Api::VideosController < BaseApiController
   def destroy
     @video.destroy
     head 204
+  end
+
+  def banned
+    @video.banned!
+    render json: @video, status: 200
   end
 
   def next
