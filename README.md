@@ -1,40 +1,37 @@
-# Rails 4.2.4 Starter Kit
+# Discjoke
 
-## Detail Starter Kit
+Create playlist for playing loved videos from youtube
 
-* Ruby version **2.2.2**
-* Rails version **4.2.4**
-* Testing With RSpec version **3.3.2**
-* Database using **PostgreSQL**
- 
+## Discjoke Technologies
 
-## Initialize Starter Kit
+* [Ruby](https://www.ruby-lang.org/) version **2.3.0**
+* [Ruby on Rails](http://rubyonrails.org/) version **4.2.6**
+* [AngularJS](https://angularjs.org/) version **1.5.2**
+* [PostgreSQL](http://www.postgresql.org/)
+* [Bootstrap](http://getbootstrap.com)
+* [Slim Ruby Template](https://github.com/slim-template/slim-rails)
+* [Pubnub](https://www.pubnub.com/)
 
-* Clone repository
- ```
-  git clone git@github.com:dimasjt/starter.git YourAppName
-  cd YourAppName
-  bundle install
+## Installation to local computer
+
+* Clone discjoke to your local machine
+```bash
+$ git clone git@github.com:41studio/discjoke.git
 ```
-
-* Rename **Starter** to **YourAppName**
-  application.rb
-  ```ruby
-    module YourAppName
-      class Application < Rails::Application
-      #...other code
-  ```
-  application.html.slim
-  ```slim
-    head
-      title YourAppName
-      /... other code
-  ```
-  
-* Rename *database.yml.example* to *database.yml*, and change username, password and database name.
-
+* Rename database config in **config/database.yml.example** to **database.yml** and change config username, password and database name.
+* Then bundle install
+```bash
+$ bundle install
+```
+* Create database
+```bash
+$ rake db:create
+```
 * Run migration
-  ```
-    rake db:create
-    rake db:migrate
-  ```
+```bash
+$ rake db:migrate
+```
+* Run the server
+```bash
+$ rails server
+```
