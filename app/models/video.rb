@@ -52,7 +52,8 @@ class Video < ActiveRecord::Base
   end
 
   def check_limit
-    videos = Video.where(user_id: user_id)
+    videos = Video.not_banned.where(channel_id: channel_id)
+      .where("created_at > ? AND user_id = ?", 1.hour.ago, user_id)
 
     if self.new_record? && videos.count > 5
       errors.add(:user_id, 'request has 5 videos')
