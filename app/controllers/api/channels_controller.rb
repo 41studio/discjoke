@@ -1,8 +1,5 @@
 class Api::ChannelsController < BaseApiController
-
-  include Pagination
-
-  before_action :set_channel, only: [:destroy, :update, :sign_in]
+  before_action :set_channel, only: [:destroy, :update, :sign_in, :empty]
 
   def index
     @channels = Channel.all
@@ -27,6 +24,11 @@ class Api::ChannelsController < BaseApiController
 
   def destroy
     @channel.destroy
+    head 204
+  end
+
+  def empty
+    @channel.videos.not_banned.destroy_all
     head 204
   end
 

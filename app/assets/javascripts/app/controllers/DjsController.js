@@ -90,6 +90,24 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
           })
         }
       }
+
+      $scope.deleteAll = function(){
+        c = confirm('Are you sure?')
+        if (c) {
+          Restangular.one('channels', channelId).one('empty').remove().then(function(callback){
+            Pubnub.publish({
+              channel: 'playlist',
+              message: [channelId, 'empty']
+            })
+            $scope.playVideo = { url: 'https://www.youtube.com/watch?v=DokUjuZmpCE' }
+            $scope.MainYoutube.ytPlayer.loadVideoById('DokUjuZmpCE')
+          }, function(err){
+            console.log(err)
+          })
+        }else{
+          return false
+        }
+      }
     }
 
     // logged dj

@@ -10,6 +10,7 @@ class Video < ActiveRecord::Base
   validates_format_of :url, with: YT_REGEX, message: 'Not valid youtube url.'
   validates_numericality_of :duration, less_than_or_equal_to: 420, message: 'should less than 7 minutes.'
   validate :check_limit
+  validate :check_banned
 
   scope :not_played, -> { order(created_at: :asc).where(status: false) }
   scope :newest, -> { order(created_at: :desc) }
@@ -84,5 +85,11 @@ class Video < ActiveRecord::Base
     else
       channel.videos.not_banned.last
     end
+  end
+
+  private
+
+  def check_banned
+    true
   end
 end

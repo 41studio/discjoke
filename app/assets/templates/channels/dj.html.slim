@@ -22,4 +22,7 @@ div ng-if="dj_logged"
           .btn-group ng-hide="!playVideo.id"
             a.btn.btn-default ng-click="prevVideo()" href="" Prev
             a.btn.btn-default ng-click="nextVideo()" href="" Next
-        div ng-include="'videos/new.html'"
+        .form-group
+          div ng-include="'videos/new.html'"
+        .form-group
+          a.btn.btn-danger ng-click="deleteAll()" href="" Empty!

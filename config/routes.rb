@@ -5,6 +5,10 @@ Rails.application.routes.draw do
 
   namespace :api, defaults: { format: :json } do
     resources :channels do
+      member do
+        delete :empty
+      end
+
       resources :videos, only: :create
 
       post "sign_in", on: :member
