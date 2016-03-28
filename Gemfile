@@ -23,7 +23,6 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'yt', '~> 0.25.5'
 gem 'puma'
 gem 'bootswatch-rails'
-gem 'activerecord-session_store'
 
 # gem 'therubyracer', platforms: :ruby
 
