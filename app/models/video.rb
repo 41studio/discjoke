@@ -1,3 +1,22 @@
+# == Schema Information
+#
+# Table name: videos
+#
+#  id          :integer          not null, primary key
+#  title       :string
+#  url         :string
+#  status      :boolean          default("false")
+#  duration    :integer          default("0")
+#  description :text
+#  thumbnail   :string
+#  user_id     :string
+#  playing     :boolean          default("false")
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  channel_id  :integer
+#  banned      :boolean          default("false")
+#
+
 class Video < ActiveRecord::Base
   YT_REGEX = /(https|http):\/\/www\.youtube\.com\/watch\?v\=([a-zA-Z0-9_-]{6,11})/
 

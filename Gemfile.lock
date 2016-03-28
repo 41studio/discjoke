@@ -43,6 +43,9 @@ GEM
       tilt
     angular_csrf (0.1.4)
       rails (>= 3.1)
+    annotate (2.6.5)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
     arel (6.0.3)
     autoprefixer-rails (6.3.3.1)
       execjs
@@ -256,6 +259,7 @@ PLATFORMS
 DEPENDENCIES
   angular-rails-templates
   angular_csrf
+  annotate
   bootstrap-sass (~> 3.3.5)
   bootswatch-rails
   carrierwave
