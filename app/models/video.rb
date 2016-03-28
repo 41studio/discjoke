@@ -74,7 +74,7 @@ class Video < ActiveRecord::Base
     videos = Video.not_banned.where(channel_id: channel_id)
       .where("created_at > ? AND user_id = ?", 1.hour.ago, user_id)
 
-    if self.new_record? && videos.count > 5
+    if self.new_record? && videos.count >= 5
       errors.add(:user_id, 'request has 5 videos')
     end
   end
