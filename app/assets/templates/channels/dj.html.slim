@@ -26,3 +26,4 @@ div ng-if="dj_logged"
           div ng-include="'videos/new.html'"
         .form-group
           a.btn.btn-danger ng-click="deleteAll()" href="" Empty!
+          a.btn.btn-primary ng-click="randomPlay(random)" ng-class="{ 'active' : random, 'btn-success' : random }" href="" Shuffle

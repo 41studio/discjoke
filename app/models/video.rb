@@ -89,8 +89,9 @@ class Video < ActiveRecord::Base
     self.save validate: false
   end
 
-  def next
-    video = Video.not_banned.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
+  def next(random = false)
+    video = random_video(random)
+
     if video.present?
       video
     else
@@ -100,6 +101,7 @@ class Video < ActiveRecord::Base
 
   def prev
     video = Video.not_banned.order(id: :asc).where("id < ? AND channel_id = ?", id, channel_id).first
+
     if video.present?
       video
     else
@@ -111,5 +113,13 @@ class Video < ActiveRecord::Base
 
   def check_banned
     true
+  end
+
+  def random_video random
+    if random
+      Video.not_banned.where("id != ? AND channel_id = ?", id, channel_id).order("RANDOM()").first
+    else
+      Video.not_banned.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
+    end
   end
 end

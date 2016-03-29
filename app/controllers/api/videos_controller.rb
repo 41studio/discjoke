@@ -38,7 +38,7 @@ class Api::VideosController < BaseApiController
   end
 
   def next
-    video = @video.next
+    video = @video.next(params[:random])
     video.play!
     render json: video, status: 200
   end

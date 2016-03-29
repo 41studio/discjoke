@@ -108,6 +108,12 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
           return false
         }
       }
+
+      $scope.random = false
+
+      $scope.randomPlay = function(random){
+        $scope.random = !random
+      }
     }
 
     // logged dj
@@ -137,7 +143,7 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
     }
 
     controlVideos = function(type){
-      Restangular.one('videos', $scope.playVideo.id).post(type).then(function(video){
+      Restangular.one('videos', $scope.playVideo.id).post(type, { random: $scope.random }).then(function(video){
         $scope.playVideo = video
         ytId = youtubeEmbedUtils.getIdFromURL(video.url)
         MainYoutube.ytPlayer.loadVideoById(ytId)
