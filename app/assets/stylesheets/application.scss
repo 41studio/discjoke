@@ -1,7 +1,4 @@
 /*
- *= require nprogress
- *= require nprogress-bootstrap
-
  *= require ngtoast/ngToast
  *= require ngtoast/ngToast-animations
 
@@ -13,3 +10,10 @@
 @import "bootswatch/superhero/variables";
 @import "bootstrap";
 @import "bootswatch/superhero/bootswatch";
+
+$nprogress-color: #0DE481;
+$nprogress-height: 4px;
+$nprogress-zindex: 10100;
+
+@import 'nprogress';
+@import 'nprogress-bootstrap';
