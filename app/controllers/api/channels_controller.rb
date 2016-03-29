@@ -50,6 +50,6 @@ class Api::ChannelsController < BaseApiController
     end
 
     def channel_params
-      params.require(:channel).permit(:name, :url, :password)
+      params.require(:channel).permit(:name, :url, :password, :announcement)
     end
 end

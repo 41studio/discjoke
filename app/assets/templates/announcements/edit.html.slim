@@ -1,0 +1,13 @@
+form novalidate="" ng-submit="updateAnnouncement(channel)"
+  .modal-header
+    h3 class="modal-title"
+      | Edit Announcement {{channel.name}} Channel
+
+  .modal-body
+    .form-group
+      label Message
+      textarea.form-control ng-model="channel.announcement" rows="6"
+
+  .modal-footer
+    input.btn.btn-primary type="submit" value="Update"
+    a.btn.btn-danger ng-click="cancel()" Cancel

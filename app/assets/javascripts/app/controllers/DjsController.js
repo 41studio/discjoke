@@ -1,5 +1,5 @@
-app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangular', '$stateParams', 'ngToast', '$cookies', 'youtubeEmbedUtils', 'MainYoutube', 'Pubnub',
-  function($scope, $rootScope, $location, Restangular, $stateParams, ngToast, $cookies, youtubeEmbedUtils, MainYoutube, Pubnub){
+app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangular', '$stateParams', 'ngToast', '$cookies', 'youtubeEmbedUtils', 'MainYoutube', 'Pubnub', '$uibModal',
+  function($scope, $rootScope, $location, Restangular, $stateParams, ngToast, $cookies, youtubeEmbedUtils, MainYoutube, Pubnub, $uibModal){
 
     channelId = $stateParams.id
     $rootScope.dj_logged = $cookies.get('dj')
@@ -113,6 +113,19 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
 
       $scope.randomPlay = function(random){
         $scope.random = !random
+      }
+
+      $scope.editAnnouncement = function(){
+        var modalInstance = $uibModal.open({
+          templateUrl: 'announcements/edit.html',
+          controller: 'AnnouncementController',
+          animation: true,
+          resolve: {
+            channel: function(){
+              return $scope.channel
+            }
+          }
+        })
       }
     }
 

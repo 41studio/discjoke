@@ -6,6 +6,10 @@ hr
   .col-md-7 ng-include="'videos/list.html'"
   .col-md-5
     .fixed-widget
+      .panel.panel-default
+        .panel-body
+          | {{channel.announcement}}
+
       .form-group ng-include="'videos/new.html'"
       .panel.panel-default
         .panel-heading Now Playing
