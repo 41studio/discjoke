@@ -30,6 +30,7 @@ class Video < ActiveRecord::Base
   validates_numericality_of :duration, less_than_or_equal_to: 420, message: 'should less than 7 minutes.'
   validate :check_limit
   validate :check_banned
+  validate :check_embedable
 
   scope :not_played, -> { order(created_at: :asc).where(status: false) }
   scope :newest, -> { order(created_at: :desc) }
@@ -121,5 +122,11 @@ class Video < ActiveRecord::Base
     else
       Video.not_banned.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
     end
+  end
+
+  def check_embedable
+    video = Yt::Video.new(url: url)
+
+    errors.add(:status, 'video not embeddable.') unless video.embeddable?
   end
 end
