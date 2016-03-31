@@ -1,5 +1,5 @@
 class Api::ChannelsController < BaseApiController
-  before_action :set_channel, only: [:destroy, :update, :sign_in, :empty]
+  before_action :set_channel, only: [:destroy, :sign_in, :empty]
 
   def index
     @channels = Channel.all
@@ -15,6 +15,7 @@ class Api::ChannelsController < BaseApiController
   end
 
   def update
+    @channel = Channel.find params[:id]
     if @channel.update(channel_params)
       render json: @channel, status: 200
     else

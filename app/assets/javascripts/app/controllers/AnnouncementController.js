@@ -7,8 +7,7 @@ app.controller('AnnouncementController', ['$scope', 'Restangular', '$uibModalIns
     }
 
     $scope.updateAnnouncement = function(channel){
-      console.log($scope.channel)
-      Restangular.one('channels', $scope.channel.url).patch({channel: channel}).then(function(channel){
+      Restangular.one('channels', $scope.channel.id).patch({channel: channel}).then(function(channel){
         $uibModalInstance.close(channel)
       }, function(err){
         ngToast.danger(err.data[0])

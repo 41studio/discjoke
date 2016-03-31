@@ -55,7 +55,8 @@ app.controller('ChannelsController', ['$scope', 'Restangular', 'ngToast', '$uibM
         })
       },
       remove: function(channelId){
-        Restangular.one('channels', channelId).remove().then(function(){
+        channel = _.find($scope.allChannels, { id: channelId })
+        Restangular.one('channels', channel.url).remove().then(function(){
           _.remove($scope.allChannels, { id: channelId })
           ngToast.success('Channel successfully removed')
         })
