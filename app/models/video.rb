@@ -18,7 +18,7 @@
 #
 
 class Video < ActiveRecord::Base
-  YT_REGEX = /(https|http):\/\/www\.youtube\.com\/watch\?v\=([a-zA-Z0-9_-]{6,11})/
+  YT_REGEX = /(https|http):\/\/(www\.|)(youtube\.com\/\watch\?v\=|youtu\.?be\/)([a-zA-Z0-9_-]{6,11})/
 
   before_validation :set_detail
 
