@@ -92,11 +92,15 @@ class Video < ActiveRecord::Base
   end
 
   def next(random = false)
+    previous_video = videos.find_by_id(id)
+    previous_video.mark_as(:played) if previous_video.present?
+
     video = random_video(random)
 
     if video.present?
       video
     else
+      videos.update_all(status: false)
       channel.videos.not_banned.first
     end
   end
@@ -117,9 +121,9 @@ class Video < ActiveRecord::Base
     true
   end
 
-  def random_video random
+  def random_video(random)
     if random
-      Video.not_banned.where("id != ? AND channel_id = ?", id, channel_id).order("RANDOM()").first
+      Video.not_banned.where(status: false).where("id != ? AND channel_id = ?", id, channel_id).order("RANDOM()").first
     else
       Video.not_banned.order(id: :asc).where("id > ? AND channel_id = ?", id, channel_id).first
     end
