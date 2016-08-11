@@ -25,7 +25,7 @@ class Video < ActiveRecord::Base
   belongs_to :channel
 
   validates :url, presence: true
-  validates :url, uniqueness: { scope: :channel_id }
+  validates :url_id, uniqueness: { scope: :channel_id }
   validates_format_of :url, with: YT_REGEX, message: 'Not valid youtube url.'
   validates_numericality_of :duration, less_than_or_equal_to: 420, message: 'should less than 7 minutes.'
   validate :check_limit
@@ -68,6 +68,7 @@ class Video < ActiveRecord::Base
       self.duration = video.duration
       self.thumbnail = video.thumbnail_url('medium')
       self.description = video.description
+      self.url_id = url.match(YT_REGEX)[4]
     end
   end
 
