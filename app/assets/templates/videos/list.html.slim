@@ -1,13 +1,11 @@
 .list-group
-  .list-group-item ng-repeat="video in videos | orderBy: 'id'" ng-class="{active: video.playing}"
+  .list-group-item ng-repeat="video in videos | orderBy: 'id'" ng-class="{active: video.playing, played: video.status}"
     .row
       .col-md-4
         img.img-rounded.img-responsive ng-src="{{video.thumbnail}}"
       .col-md-8
         h4.list-group-item-heading
           | {{video.title}}
-          span.label.label-info ng-show="video.playing" #NP
-          span.label.label-warning ng-show="video.status" #PLAYED
         .list-group-item-text
           .btn-group
             a.btn.btn-sm.btn-info ng-href="{{video.url}}" target="_blank" Youtube
