@@ -14,6 +14,7 @@
 #= require angular-youtube-mb/angular-youtube-embed
 #= require angular-bootstrap/ui-bootstrap-tpls
 #= require angular-rails-templates
+#= require angular-web-notification
 
 #= require_tree ./app
 #= require_tree ../templates

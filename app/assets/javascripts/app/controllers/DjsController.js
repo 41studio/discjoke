@@ -1,5 +1,5 @@
-app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangular', '$stateParams', 'ngToast', '$cookies', 'youtubeEmbedUtils', 'MainYoutube', 'Pubnub', '$uibModal',
-  function($scope, $rootScope, $location, Restangular, $stateParams, ngToast, $cookies, youtubeEmbedUtils, MainYoutube, Pubnub, $uibModal){
+app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangular', '$stateParams', 'ngToast', '$cookies', 'youtubeEmbedUtils', 'MainYoutube', 'Pubnub', '$uibModal', 'NotificationService',
+  function($scope, $rootScope, $location, Restangular, $stateParams, ngToast, $cookies, youtubeEmbedUtils, MainYoutube, Pubnub, $uibModal, NotificationService){
 
     channelId = $stateParams.id
     $rootScope.dj_logged = $cookies.get('dj')
@@ -24,6 +24,7 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
           $scope.playVideo = video
 
           updateListVideos(video)
+          NotificationService.notify($scope.channel, video);
         })
       }
 
@@ -79,7 +80,7 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
 
           $scope.newVideo = { url: '' }
           ngToast.success('Video added.')
-
+          NotificationService.register($scope.channel)
           Pubnub.publish({
             channel: 'playlist',
             message: [video.id, 'add']
@@ -161,6 +162,7 @@ app.controller('DjsController', ['$scope', '$rootScope', '$location', 'Restangul
         ytId = youtubeEmbedUtils.getIdFromURL(video.url)
         MainYoutube.ytPlayer.loadVideoById(ytId)
         updateListVideos(video)
+        if (type === 'next') NotificationService.notify($scope.channel, video);
       })
     }
 

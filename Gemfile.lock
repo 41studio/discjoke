@@ -153,7 +153,11 @@ GEM
     rails-assets-angular-ui-router (0.2.18)
       rails-assets-angular (>= 1.0.8, < 2)
     rails-assets-angular-validation (1.4.1)
+    rails-assets-angular-web-notification (1.0.16)
+      rails-assets-angular (~> 1)
+      rails-assets-html5-desktop-notifications (~> 3)
     rails-assets-angular-youtube-mb (1.1.1)
+    rails-assets-html5-desktop-notifications (3.0.0)
     rails-assets-lodash (4.6.1)
     rails-assets-ngtoast (2.0.0)
       rails-assets-angular (>= 1.2.15, < 1.6)
@@ -285,6 +289,7 @@ DEPENDENCIES
   rails-assets-angular-sanitize!
   rails-assets-angular-ui-router!
   rails-assets-angular-validation!
+  rails-assets-angular-web-notification!
   rails-assets-angular-youtube-mb!
   rails-assets-ngtoast!
   rails-assets-pubnub-angular!

@@ -7,7 +7,8 @@ var app = angular.module('DiscjokeApp', [
   'youtube-embed',
   'ui.bootstrap',
   'ngCookies',
-  'nprogress-rails'
+  'nprogress-rails',
+  'angular-web-notification'
 ]);
 
 app.config(['$stateProvider', '$urlRouterProvider', '$locationProvider', 'ngToastProvider',
