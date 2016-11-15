@@ -18,27 +18,25 @@
       if (!registered(channel)) {
         setChannelCookie(channel.url);
       }
-      console.log('register success')
     }
 
     function notify (channel, video) {
-      if (registered(channel)) {
-        webNotification.showNotification('Discjoke '+channel.name, {
-          body: video.title,
-          icon: video.thumbnail,
-          onClick: function onNotificationClicked() {
-              console.log('Notification clicked.');
-          },
-          autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
-        }, function onShow(error, hide) {
-          if (error) {
-            console.log('Unable to show notification: ' + error.message);
-          } else {
-            console.log('Notification Shown.');
-          }
-        });
-      } else {
-        console.log('not notified')
+      if (!registered(channel)) return true;
+
+      var notificationOpts = {
+        body: video.title,
+        icon: video.thumbnail,
+        onClick: function onNotificationClicked() {
+            console.log('Notification clicked.');
+        },
+        autoClose: 4000 //auto close the notification after 4 seconds (you can manually close it via hide function)
+      }
+
+      webNotification
+        .showNotification('Discjoke ' + channel.name, notificationOpts, onShow);
+
+      function onShow(error, hide) {
+        if (error) console.log('Unable to show notification: ' + error.message);
       }
     }
 
